@@ -1,11 +1,10 @@
-# US Unemployment Rate in Percentages
-
+# Consumer Price Index for WLD Urban Consumers: WLD Items in U.S
 
 import requests
 import json
 import datetime as dt
 
-url = "https://api.stlouisfed.org/fred/series/observations?series_id=UNRATE&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCSL&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
 
 response = requests.get(url)
 if response.status_code == 200:
@@ -23,4 +22,3 @@ if response.status_code == 200:
     print(result)
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
-
