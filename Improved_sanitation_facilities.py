@@ -1,9 +1,9 @@
-# Vulnerable employment, total (% of total employment)
+# Improved sanitation facilities (% of population with access)
 import requests
 import json
 import datetime as dt
 
-url = "https://api.worldbank.org/v2/country/WLD/indicator/SL.EMP.VULN.ZS?format=json"
+url = "https://api.worldbank.org/v2/country/WLD/indicator/SH.STA.SMSS.ZS?format=json"
 response = requests.get(url)
 
 if response.status_code == 200:

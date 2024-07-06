@@ -1,9 +1,9 @@
-# Vulnerable employment, total (% of total employment)
+# Personal remittances, received (% of GDP)
 import requests
 import json
 import datetime as dt
 
-url = "https://api.worldbank.org/v2/country/WLD/indicator/SL.EMP.VULN.ZS?format=json"
+url = "https://api.worldbank.org/v2/country/WLD/indicator/BX.TRF.PWKR.DT.GD.ZS?format=json"
 response = requests.get(url)
 
 if response.status_code == 200:
