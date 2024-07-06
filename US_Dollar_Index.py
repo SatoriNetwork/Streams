@@ -1,9 +1,10 @@
-# SPY Daily Opening Prices
+# USD Daily Opening Prices
+
 import requests
 import json
 import datetime as dt
 
-url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=SPY&outputsize=full&apikey=YOUR_API_KEY"
+url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=USD&outputsize=full&apikey=YOUR_API_KEY"
 response = requests.get(url)
 
 if response.status_code == 200:
@@ -11,7 +12,6 @@ if response.status_code == 200:
     time_series = data['Time Series (Daily)']
     result = {}
 
-    # Convert to list of tuples and sort by date
     sorted_data = sorted(time_series.items(), key=lambda x: dt.datetime.strptime(x[0], '%Y-%m-%d'))
 
     for date, values in sorted_data:
@@ -22,7 +22,6 @@ if response.status_code == 200:
             result[formatted_date_str] = open_price
         except ValueError:
             continue
-
     print(result)
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
