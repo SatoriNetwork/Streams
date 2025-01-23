@@ -1,4 +1,4 @@
-# Total Public Debt as Percent of Gross Domestic Produc
+# Total Public Debt as Percent of Gross Domestic Product
 
 import requests
 import json

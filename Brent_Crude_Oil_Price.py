@@ -1,10 +1,10 @@
-# Natural Gas Prices
+# Brent Crude Oil Price
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.eia.gov//v2//seriesid//NG.RNGWHHD.D?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
+url = "https://api.eia.gov//v2//seriesid//PET.RBRTE.D?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
 response = requests.get(url)
 
 if response.status_code == 200:
@@ -28,11 +28,11 @@ if response.status_code == 200:
                 continue
 
     # Save the data to a CSV file
-    with open('natural_gas_prices.csv', 'w', newline='') as csvfile:
+    with open('Brent_Crude_Oil_Price.csv', 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(['index', 'value'])  # Write the header
         csvwriter.writerows(result)
 
-    print("Data has been saved to natural_gas_prices.csv")
+    print("Data has been saved to Brent_Crude_Oil_Price.csv")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
