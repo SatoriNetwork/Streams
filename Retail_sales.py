@@ -1,4 +1,5 @@
 # Retail Sales
+# Generate CSV
 import requests
 import json
 import datetime as dt
@@ -33,3 +34,30 @@ if response.status_code == 200:
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
+# Generate latest value
+def postRequestHook(response: 'requests.Response'):
+    ''' Returns the latest value from the FRED API response '''
+    import json
+    if response.status_code != 200:
+        return None
+
+    try:
+        data = json.loads(response.text)
+        observations = data['observations']
+
+        # Find the latest non-empty value
+        for obs in reversed(observations):
+            try:
+                value = float(obs['value'])
+                return value
+            except ValueError:
+                continue
+
+        return None
+    except Exception as e:
+        return None
+    
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=RSXFS&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+response = requests.get(url)
+latest_value = postRequestHook(response)
+print(latest_value)

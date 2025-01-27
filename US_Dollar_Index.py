@@ -1,5 +1,5 @@
 # USD Daily Opening Prices
-
+# Generate CSV
 import requests
 import json
 import datetime as dt
@@ -26,7 +26,7 @@ if response.status_code == 200:
             formatted_date = dt.datetime.strptime(date + ' 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
             formatted_date_str = formatted_date.strftime('%Y-%m-%d %H:%M:%S.%f')
             try:
-                open_price = float(values['4. close'])
+                open_price = float(values['1. open'])
                 # Write each row to the CSV file
                 csvwriter.writerow([formatted_date_str, open_price])
             except ValueError:
@@ -37,37 +37,30 @@ else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
 
+# Generate latest value
+def postRequestHook(response: 'requests.Response'):
+    ''' Returns the latest value from the FRED API response '''
+    import json
+    if response.status_code != 200:
+        return None
 
+    try:
+        data = json.loads(response.text)
+        time_series = data['Time Series (Daily)']
+        sorted_data = sorted(time_series.items(), key=lambda x: dt.datetime.strptime(x[0], '%Y-%m-%d'))
+        # Find the latest non-empty value
+        for date,item in reversed(sorted_data):
+            try:
+                if item['1. open'] is not None:
+                    return float(item['1. open'])
+            except ValueError:
+                continue
 
-
-# def postRequestHook(response: 'requests.Response'):
-#     import json
-#     import datetime as dt
-#
-#     if response.status_code != 200:
-#         return None
-#
-#     try:
-#         data = json.loads(response.text)
-#         time_series = data['Time Series (Daily)']
-#         result = {}
-#
-#         sorted_data = sorted(time_series.items(), key=lambda x: dt.datetime.strptime(x[0], '%Y-%m-%d'))
-#
-#         for date, values in sorted_data:
-#             formatted_date = dt.datetime.strptime(date + ' 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
-#             formatted_date_str = formatted_date.strftime('%Y-%m-%d %H:%M:%S.%f')
-#             try:
-#                 open_price = float(values['1. open'])
-#                 result[formatted_date_str] = open_price
-#             except ValueError:
-#                 continue
-#
-#         if result:
-#             latest_date = max(result.keys())
-#             return result[latest_date]
-#         else:
-#             return None
-#
-#     except Exception as e:
-#         return None
+        return None
+    except Exception as e:
+        return None
+    
+url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=USD&outputsize=full&apikey=YOUR_API_KEY"
+response = requests.get(url)
+latest_value = postRequestHook(response)
+print(latest_value)

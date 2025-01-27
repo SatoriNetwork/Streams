@@ -1,5 +1,5 @@
 # Refinery Capacity
-
+# Generate CSV
 import requests
 import json
 import datetime as dt
@@ -37,3 +37,31 @@ if response.status_code == 200:
     print("Data has been saved to Refinery_Capacity.csv")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
+
+# Generate latest value
+def postRequestHook(response: 'requests.Response'):
+    ''' Returns the latest value from the FRED API response '''
+    import json
+    if response.status_code != 200:
+        return None
+
+    try:
+        data = json.loads(response.text)
+        time_series = data['response']['data']
+        sorted_data = sorted(time_series, key=lambda x: x['period'])
+        # Find the latest non-empty value
+        for item in reversed(sorted_data):
+            try:
+                if item['value'] is not None:
+                    return float(item['value'])
+            except ValueError:
+                continue
+
+        return None
+    except Exception as e:
+        return None
+    
+url = "https://api.eia.gov//v2//seriesid//PET.MCRFPUS1.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
+response = requests.get(url)
+latest_value = postRequestHook(response)
+print(latest_value)
