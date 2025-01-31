@@ -1,11 +1,11 @@
-# Diabetes prevalence (% of population ages 20 to 79)
+# PM2.5 air pollution
 # Generate CSV
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.worldbank.org/v2/country/WLD/indicator/SH.STA.DIAB.ZS?format=json"
+url = "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json"
 response = requests.get(url)
 
 if response.status_code == 200:
@@ -16,7 +16,7 @@ if response.status_code == 200:
     # Sort the data by date in ascending order
     sorted_data = sorted(time_series, key=lambda x: x['date'])
     # Open a CSV file for writing
-    with open('Diabetes_prevalence.csv', 'w', newline='') as csvfile:
+    with open('PM2.5_air_pollution.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
         # Write the header
@@ -36,7 +36,7 @@ if response.status_code == 200:
                     continue
 
     # print(result)
-    print("Data has been saved to 'Diabetes_prevalence.csv'")
+    print("Data has been saved to 'PM2.5_air_pollution.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
@@ -63,7 +63,7 @@ def postRequestHook(response: 'requests.Response'):
     except Exception as e:
         return None
     
-url = "https://api.worldbank.org/v2/country/WLD/indicator/SH.STA.DIAB.ZS?format=json"
+url = "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json"
 response = requests.get(url)
 latest_value = postRequestHook(response)
 print(latest_value)
