@@ -1,11 +1,11 @@
-# Exports of goods and services
+# Manufactured exports
 # Generate CSV
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.worldbank.org/v2/country/WLD/indicator/BX.GSR.GNFS.CD?format=json"
+url = "https://api.worldbank.org/v2/country/WLD/indicator/TX.VAL.MANF.ZS.UN?format=json"
 response = requests.get(url)
 
 if response.status_code == 200:
@@ -16,7 +16,7 @@ if response.status_code == 200:
     # Sort the data by date in ascending order
     sorted_data = sorted(time_series, key=lambda x: x['date'])
     # Open a CSV file for writing
-    with open('Exports_of_goods_and_services.csv', 'w', newline='') as csvfile:
+    with open('Manufactured_exports.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
         # Write the header
@@ -35,7 +35,7 @@ if response.status_code == 200:
                 except ValueError:
                     continue
 
-    print("Data has been saved to 'Exports_of_goods_and_services.csv'")
+    print("Data has been saved to 'Manufactured_exports.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
@@ -62,7 +62,7 @@ def postRequestHook(response: 'requests.Response'):
     except Exception as e:
         return None
     
-url = "https://api.worldbank.org/v2/country/WLD/indicator/BX.GSR.GNFS.CD?format=json"
+url = "https://api.worldbank.org/v2/country/WLD/indicator/TX.VAL.MANF.ZS.UN?format=json"
 response = requests.get(url)
 latest_value = postRequestHook(response)
 print(latest_value)
