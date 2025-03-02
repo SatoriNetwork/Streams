@@ -1,4 +1,4 @@
-# Real exports
+# Real exports of goods
 # Generate CSV
 import requests
 import json
