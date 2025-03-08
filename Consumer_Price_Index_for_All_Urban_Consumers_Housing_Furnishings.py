@@ -1,11 +1,11 @@
-# Total Households
+# Consumer Price Index for All Urban Consumers: Housing Furnishings
 # Generate CSV
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.stlouisfed.org/fred/series/observations?series_id=TTLHHM156N&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=CUSR0000SAE1&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
 
 response = requests.get(url)
 if response.status_code == 200:
@@ -13,7 +13,7 @@ if response.status_code == 200:
     observations = data['observations']
 
     # Open a CSV file for writing
-    with open("Total_Households.csv", 'w', newline='') as csvfile:
+    with open('Consumer_Price_Index_for_All_Urban_Consumers_Housing_Furnishings.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
 
@@ -30,7 +30,7 @@ if response.status_code == 200:
             except ValueError:
                 continue
 
-    print("Data has been saved to Total_Households.csv")
+    print("Data has been saved to 'Consumer_Price_Index_for_All_Urban_Consumers_Housing_Furnishings.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
@@ -57,7 +57,7 @@ def postRequestHook(response: 'requests.Response'):
     except Exception as e:
         return None
     
-url = "https://api.stlouisfed.org/fred/series/observations?series_id=TTLHHM156N&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=CUSR0000SAE1&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
 response = requests.get(url)
 latest_value = postRequestHook(response)
 print(latest_value)
