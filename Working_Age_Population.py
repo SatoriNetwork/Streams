@@ -1,10 +1,11 @@
 # Working Age Population
+# Generate CSV
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.stlouisfed.org/fred/series/observations?series_id=LFWA64TTUSM647N&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=LFAC25MAUSA647N&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
 
 response = requests.get(url)
 if response.status_code == 200:
