@@ -5,7 +5,7 @@ import json
 import datetime as dt
 import csv
 
-url = "https://api.stlouisfed.org/fred/series/observations?series_id=BAA10Y&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=BAA&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
 
 response = requests.get(url)
 if response.status_code == 200:
@@ -57,7 +57,7 @@ def postRequestHook(response: 'requests.Response'):
     except Exception as e:
         return None
     
-url = "https://api.stlouisfed.org/fred/series/observations?series_id=BAA10Y&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
+url = "https://api.stlouisfed.org/fred/series/observations?series_id=BAA&api_key=7ef44306675240d156b2b8786339b867&file_type=json"
 response = requests.get(url)
 latest_value = postRequestHook(response)
 print(latest_value)
