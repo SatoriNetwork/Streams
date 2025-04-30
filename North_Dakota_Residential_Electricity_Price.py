@@ -1,4 +1,4 @@
-# North Dakota Residentia Electricity Price
+# North Dakota Residential Electricity Price
 # Generate CSV
 import requests
 import json
@@ -29,12 +29,12 @@ if response.status_code == 200:
                 continue
 
     # Save the data to a CSV file
-    with open('North_Dakota_Residentia_Electricity_Price.csv', 'w', newline='') as csvfile:
+    with open('North_Dakota_Residential_Electricity_Price.csv', 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(['index', 'value'])  # Write the header
         csvwriter.writerows(result)
 
-    print("Data has been saved to North_Dakota_Residentia_Electricity_Price.csv")
+    print("Data has been saved to North_Dakota_Residential_Electricity_Price.csv")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 

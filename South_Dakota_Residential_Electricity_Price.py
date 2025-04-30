@@ -1,11 +1,11 @@
-# Indiana Residentia Electricity Price
+# South Dakota Residential Electricity Price
 # Generate CSV
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.eia.gov//v2//seriesid//ELEC.PRICE.IN-RES.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
+url = "https://api.eia.gov//v2//seriesid//ELEC.PRICE.SD-RES.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
 response = requests.get(url)
 
 if response.status_code == 200:
@@ -29,12 +29,12 @@ if response.status_code == 200:
                 continue
 
     # Save the data to a CSV file
-    with open('Indiana_Residentia_Electricity_Price.csv', 'w', newline='') as csvfile:
+    with open('South_Dakota_Residential_Electricity_Price.csv', 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(['index', 'value'])  # Write the header
         csvwriter.writerows(result)
 
-    print("Data has been saved to Indiana_Residentia_Electricity_Price.csv")
+    print("Data has been saved to South_Dakota_Residential_Electricity_Price.csv")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
@@ -61,7 +61,7 @@ def postRequestHook(response: 'requests.Response'):
     except Exception as e:
         return None
     
-url = "https://api.eia.gov//v2//seriesid//ELEC.PRICE.IN-RES.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
+url = "https://api.eia.gov//v2//seriesid//ELEC.PRICE.SD-RES.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
 response = requests.get(url)
 latest_value = postRequestHook(response)
 print(latest_value)

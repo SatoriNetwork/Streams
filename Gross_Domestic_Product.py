@@ -13,7 +13,7 @@ if response.status_code == 200:
     observations = data['observations']
     # result = {}
     # Open a CSV file for writing
-    with open('Capacity_Utilization_Total_Industry.csv', 'w', newline='') as csvfile:
+    with open('Gross_Domestic_Product.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csv_writer = csv.writer(csvfile)
         # Write the header
@@ -29,7 +29,7 @@ if response.status_code == 200:
             except ValueError:
                 continue
     # print(result)
-    print("Data has been saved to Capacity_Utilization_Total_Industry.csv")
+    print("Data has been saved to Gross_Domestic_Product.csv")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 

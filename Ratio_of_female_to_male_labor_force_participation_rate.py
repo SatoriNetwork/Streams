@@ -1,4 +1,4 @@
-#Ratio of female to male labor force participation rate (%)
+# Ratio of female to male labor force participation rate (%)
 # Generate CSV
 import requests
 import json
@@ -16,7 +16,7 @@ if response.status_code == 200:
     # Sort the data by date in ascending order
     sorted_data = sorted(time_series, key=lambda x: x['date'])
     # Open a CSV file for writing
-    with open('Proportion_of_seats_held_by_women_in_parliaments.csv', 'w', newline='') as csvfile:
+    with open('Ratio_of_female_to_male_labor_force_participation_rate.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
         # Write the header
@@ -35,7 +35,7 @@ if response.status_code == 200:
                 except ValueError:
                     continue
 
-    print("Data has been saved to 'Proportion_of_seats_held_by_women_in_parliaments.csv'")
+    print("Data has been saved to 'Ratio_of_female_to_male_labor_force_participation_rate.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 

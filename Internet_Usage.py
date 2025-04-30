@@ -16,7 +16,7 @@ if response.status_code == 200:
     # Sort the data by date in ascending order
     sorted_data = sorted(time_series, key=lambda x: x['date'])
     # Open a CSV file for writing
-    with open('Inflation_Rate.csv', 'w', newline='') as csvfile:
+    with open('Internet_Usage.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
         # Write the header
@@ -36,7 +36,7 @@ if response.status_code == 200:
                     continue
 
     # print(result)
-    print("Data has been saved to 'Inflation_Rate.csv'")
+    print("Data has been saved to 'Internet_Usage.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 

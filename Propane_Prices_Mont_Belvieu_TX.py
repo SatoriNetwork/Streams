@@ -13,7 +13,7 @@ if response.status_code == 200:
     observations = data['observations']
 
     # Open a CSV file for writing
-    with open('Propane_Prices_Mont_Belvieu,TX.csv', 'w', newline='') as csvfile:
+    with open('Propane_Prices_Mont_Belvieu_TX.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
 
@@ -30,7 +30,7 @@ if response.status_code == 200:
             except ValueError:
                 continue
 
-    print("Data has been saved to 'Propane_Prices_Mont_Belvieu,TX.csv'")
+    print("Data has been saved to 'Propane_Prices_Mont_Belvieu_TX.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 

@@ -16,7 +16,7 @@ if response.status_code == 200:
     # Sort the data by date in ascending order
     sorted_data = sorted(time_series, key=lambda x: x['date'])
     # Open a CSV file for writing
-    with open('Labor_force_participation_rate,_total(% of total population ages 15-64).csv', 'w', newline='') as csvfile:
+    with open('Labor_force_participation_rate_total(% of total population ages 15-64).csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
         # Write the header
@@ -36,7 +36,7 @@ if response.status_code == 200:
                     continue
 
     # print(result)
-    print("Data has been saved to 'Labor_force_participation_rate,_total(% of total population ages 15-64).csv'")
+    print("Data has been saved to 'Labor_force_participation_rate_total(% of total population ages 15-64).csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 

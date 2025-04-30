@@ -13,7 +13,7 @@ if response.status_code == 200:
     observations = data['observations']
 
     # Open a CSV file for writing
-    with open('Trade_Weighted_U.S._Dollar_Index-Broad,Goods.csv', 'w', newline='') as csvfile:
+    with open('Trade_Weighted_US_Dollar_Index_Broad_Goods.csv', 'w', newline='') as csvfile:
         # Create a CSV writer object
         csvwriter = csv.writer(csvfile)
 
@@ -30,7 +30,7 @@ if response.status_code == 200:
             except ValueError:
                 continue
 
-    print("Data has been saved to 'Trade_Weighted_U.S._Dollar_Index-Broad,Goods.csv'")
+    print("Data has been saved to 'Trade_Weighted_US_Dollar_Index_Broad_Goods.csv'")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
