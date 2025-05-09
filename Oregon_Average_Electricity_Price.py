@@ -1,11 +1,11 @@
-# Natural Gas Prices
+# Oregon Average Electricity Price
 # Generate CSV
 import requests
 import json
 import datetime as dt
 import csv
 
-url = "https://api.eia.gov//v2//seriesid//NG.RNGWHHD.D?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
+url = "https://api.eia.gov//v2//seriesid//ELEC.PRICE.OR-ALL.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
 response = requests.get(url)
 
 if response.status_code == 200:
@@ -17,10 +17,10 @@ if response.status_code == 200:
     sorted_data = sorted(time_series, key=lambda x: x['period'])
 
     for item in sorted_data:
-        period = item['period']
-        formatted_date = dt.datetime.strptime(period + ' 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
+        period = str(item['period'])
+        formatted_date = dt.datetime.strptime(period + '-01 00:00:00.000000', '%Y-%m-%d %H:%M:%S.%f')
         formatted_date_str = formatted_date.strftime('%Y-%m-%d %H:%M:%S.%f')
-        value = item['value']
+        value = item['price']
         if value is not None:
             try:
                 price = float(value)
@@ -29,12 +29,12 @@ if response.status_code == 200:
                 continue
 
     # Save the data to a CSV file
-    with open('Natural_gas_price.csv', 'w', newline='') as csvfile:
+    with open('Oregon_Average_Electricity_Price.csv', 'w', newline='') as csvfile:
         csvwriter = csv.writer(csvfile)
         csvwriter.writerow(['index', 'value'])  # Write the header
         csvwriter.writerows(result)
 
-    print("Data has been saved to Natural_gas_price.csv")
+    print("Data has been saved to Oregon_Average_Electricity_Price.csv")
 else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
@@ -52,8 +52,8 @@ def postRequestHook(response: 'requests.Response'):
         # Find the latest non-empty value
         for item in reversed(sorted_data):
             try:
-                if item['value'] is not None:
-                    return float(item['value'])
+                if item['price'] is not None:
+                    return float(item['price'])
             except ValueError:
                 continue
 
@@ -61,7 +61,7 @@ def postRequestHook(response: 'requests.Response'):
     except Exception as e:
         return None
     
-url = "https://api.eia.gov//v2//seriesid//NG.RNGWHHD.D?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
+url = "https://api.eia.gov//v2//seriesid//ELEC.PRICE.OR-ALL.M?api_key=wxFRLAoaTMQ9Ra7NvakhNKSxxstutZsG28nuerWR"
 response = requests.get(url)
 latest_value = postRequestHook(response)
 print(latest_value)
